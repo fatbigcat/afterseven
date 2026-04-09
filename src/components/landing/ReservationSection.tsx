@@ -31,9 +31,7 @@ export function ReservationSection({
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         className="text-xs sm:text-sm uppercase tracking-[0.3em] text-white/40 mb-12"
-      >
-        Reserve Your Place
-      </motion.h3>
+      ></motion.h3>
 
       <ReservationForm
         spotsRemaining={event.spots_remaining}

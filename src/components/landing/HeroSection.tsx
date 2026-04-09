@@ -71,7 +71,7 @@ export function HeroSection({ event, onReserveClick }: HeroSectionProps) {
         variants={fadeUp}
         className="border border-white/15 px-8 py-6 mb-10 w-full max-w-xs"
       >
-        <h2 className="text-sm sm:text-base font-bold text-alabaster uppercase tracking-[0.12em] mb-1">
+        <h2 className="text-sm sm:text-base font-bold text-alabaster tracking-[0.12em] mb-1">
           {event.title}
         </h2>
         <p className="text-xs text-white/40 uppercase tracking-[0.15em]">

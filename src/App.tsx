@@ -40,7 +40,7 @@ function App() {
           className="admin-entry-link"
           aria-label="Open admin page"
         >
-          ⚙
+          ✿
         </a>
       )}
 
@@ -81,6 +81,22 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <footer
+        className="fixed bottom-0 left-0 py-3 px-4 text-left uppercase text-[10px] tracking-[0.2em] text-white pointer-events-none"
+        style={{
+          textShadow: "0 3px 15px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,1)",
+        }}
+      >
+        <a
+          href="https://instagram.com/sustersickalina"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/95 hover:text-white uppercase transition-colors pointer-events-auto"
+        >
+          © Kalina
+        </a>
+      </footer>
     </div>
   );
 }

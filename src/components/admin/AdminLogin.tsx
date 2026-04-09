@@ -27,12 +27,10 @@ export function AdminLogin({ onLogin, isLoading, error }: AdminLoginProps) {
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         className="w-full max-w-sm"
       >
-        <h1 className="text-2xl font-black uppercase tracking-[0.1em] text-alabaster mb-2 text-center">
+        <h1 className="text-4xl font-cometus text-alabaster mb-2 text-center">
           Admin
         </h1>
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10 text-center">
-          Authorized personnel only
-        </p>
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10 text-center"></p>
 
         <form onSubmit={handleSubmit}>
           <div className="mb-6">
@@ -74,7 +72,7 @@ export function AdminLogin({ onLogin, isLoading, error }: AdminLoginProps) {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-alabaster text-black font-bold text-sm uppercase tracking-[0.2em] py-4 hover:bg-white transition-colors active:scale-[0.98] disabled:opacity-50 min-h-[48px]"
+            className="w-full bg-alabaster text-black font-black text-sm uppercase tracking-[0.2em] py-4 hover:bg-white transition-colors active:scale-[0.98] disabled:opacity-50 min-h-[48px]"
           >
             {isLoading ? <LoadingSpinner /> : "Sign In"}
           </button>

@@ -147,9 +147,6 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
             >
               ←
             </a>
-            <h1 className="text-2xl font-cometus font-medium tracking-[-0.02em] text-alabaster">
-              Dashboard
-            </h1>
           </div>
           <button
             onClick={handleLogout}
