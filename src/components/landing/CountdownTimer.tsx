@@ -30,7 +30,7 @@ function TimeUnit({ value, label }: { value: number; label: string }) {
         key={value}
         initial={{ opacity: 0.6, y: -4 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-3xl sm:text-5xl font-bold tabular-nums text-alabaster tracking-tight font-mono"
+        className="text-3xl sm:text-5xl font-cometus font-medium tabular-nums text-alabaster tracking-tight"
       >
         {String(value).padStart(2, "0")}
       </motion.span>

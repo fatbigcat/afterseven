@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { createClient } from "@/lib/supabase/client";
 import { FunctionsHttpError } from "@supabase/supabase-js";
-import type { DashboardData, CreateEventInput } from "@/types";
+import type { DashboardData, CreateEventInput, Reservation } from "@/types";
 import { CreateEventForm } from "./CreateEventForm";
 import { ReservationTable } from "./ReservationTable";
 import { LoadingSpinner } from "@/components/shared/LoadingSpinner";
@@ -108,6 +108,20 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
     onLogout();
   };
 
+  const handleCancelReservation = async (reservation: Reservation) => {
+    try {
+      setError(null);
+      await invokeFunction("admin-cancel-reservation", {
+        reservation_id: reservation.id,
+      });
+      await fetchDashboard();
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : "Failed to cancel reservation";
+      setError(message);
+    }
+  };
+
   if (loading) {
     return <LoadingSpinner className="min-h-svh" />;
   }
@@ -125,9 +139,18 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-10">
-          <h1 className="text-xl font-black uppercase tracking-[0.1em] text-alabaster">
-            Dashboard
-          </h1>
+          <div className="flex items-center gap-4">
+            <a
+              href="#/"
+              aria-label="Back to homepage"
+              className="text-alabaster/70 hover:text-alabaster transition-colors text-xl leading-none"
+            >
+              ←
+            </a>
+            <h1 className="text-2xl font-cometus font-medium tracking-[-0.02em] text-alabaster">
+              Dashboard
+            </h1>
+          </div>
           <button
             onClick={handleLogout}
             className="text-xs uppercase tracking-[0.15em] text-white/40 hover:text-white/70 transition-colors"
@@ -200,7 +223,10 @@ export function AdminDashboard({ onLogout }: AdminDashboardProps) {
               <h3 className="text-sm font-bold uppercase tracking-[0.15em] text-alabaster mb-4">
                 Reservations
               </h3>
-              <ReservationTable reservations={reservations} />
+              <ReservationTable
+                reservations={reservations}
+                onCancel={handleCancelReservation}
+              />
             </div>
           </div>
         ) : (

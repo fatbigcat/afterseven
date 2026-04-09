@@ -48,10 +48,10 @@ export function LandingPage({ onSuccess }: LandingPageProps) {
   if (fetchError) {
     return (
       <div className="min-h-svh flex flex-col items-center justify-center px-6 text-center">
-        <h1 className="text-[clamp(3rem,10vw,7rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-alabaster mb-6">
-          AFTER
+        <h1 className="text-[clamp(4.75rem,13vw,8.5rem)] font-cometus font-medium leading-[0.85] tracking-[-0.03em] text-alabaster mb-6">
+          After
           <br />
-          SEVEN
+          Seven
         </h1>
         <p className="text-sm uppercase tracking-[0.2em] text-red-300/90 max-w-xl">
           {fetchError}
@@ -63,10 +63,10 @@ export function LandingPage({ onSuccess }: LandingPageProps) {
   if (!event) {
     return (
       <div className="min-h-svh flex flex-col items-center justify-center px-6 text-center">
-        <h1 className="text-[clamp(3rem,10vw,7rem)] font-black uppercase leading-[0.9] tracking-[-0.03em] text-alabaster mb-6">
-          AFTER
+        <h1 className="text-[clamp(4.75rem,13vw,8.5rem)] font-cometus font-medium leading-[0.85] tracking-[-0.03em] text-alabaster mb-6">
+          After
           <br />
-          SEVEN
+          Seven
         </h1>
         <p className="text-sm uppercase tracking-[0.2em] text-white/40">
           No upcoming events

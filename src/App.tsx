@@ -40,7 +40,7 @@ function App() {
           className="admin-entry-link"
           aria-label="Open admin page"
         >
-          Admin
+          ⚙
         </a>
       )}
 

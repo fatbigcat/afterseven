@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Reservation } from "@/types";
 
 interface ReservationTableProps {
   reservations: Reservation[];
+  onCancel?: (reservation: Reservation) => Promise<void>;
 }
 
-export function ReservationTable({ reservations }: ReservationTableProps) {
+export function ReservationTable({
+  reservations,
+  onCancel,
+}: ReservationTableProps) {
+  const [cancellingId, setCancellingId] = useState<string | null>(null);
+
   if (reservations.length === 0) {
     return (
       <div className="border border-white/10 p-8 text-center">
@@ -15,6 +22,22 @@ export function ReservationTable({ reservations }: ReservationTableProps) {
       </div>
     );
   }
+
+  const handleCancel = async (r: Reservation) => {
+    if (!onCancel) return;
+    if (
+      !confirm(
+        `Cancel reservation for ${r.full_name} (${r.party_size} guest${r.party_size > 1 ? "s" : ""})?`,
+      )
+    )
+      return;
+    setCancellingId(r.id);
+    try {
+      await onCancel(r);
+    } finally {
+      setCancellingId(null);
+    }
+  };
 
   return (
     <motion.div
@@ -41,6 +64,9 @@ export function ReservationTable({ reservations }: ReservationTableProps) {
             <th className="px-4 py-3 text-xs uppercase tracking-[0.15em] text-white/40 font-medium">
               Date
             </th>
+            {onCancel && (
+              <th className="px-4 py-3 text-xs uppercase tracking-[0.15em] text-white/40 font-medium"></th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -65,6 +91,17 @@ export function ReservationTable({ reservations }: ReservationTableProps) {
               <td className="px-4 py-3 text-sm text-white/40">
                 {new Date(r.created_at).toLocaleDateString()}
               </td>
+              {onCancel && (
+                <td className="px-4 py-3">
+                  <button
+                    onClick={() => handleCancel(r)}
+                    disabled={cancellingId === r.id}
+                    className="text-xs uppercase tracking-[0.1em] text-red-400/70 hover:text-red-300 transition-colors disabled:opacity-40"
+                  >
+                    {cancellingId === r.id ? "…" : "Cancel"}
+                  </button>
+                </td>
+              )}
             </motion.tr>
           ))}
         </tbody>

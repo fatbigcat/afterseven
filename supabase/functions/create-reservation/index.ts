@@ -97,14 +97,16 @@ Deno.serve(async (req) => {
           minute: "2-digit",
         });
 
-        await fetch("https://api.resend.com/emails", {
+        const fromAddress = Deno.env.get("RESEND_FROM_ADDRESS") || "Afterseven <onboarding@resend.dev>";
+
+        const emailRes = await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${resendKey}`,
           },
           body: JSON.stringify({
-            from: "Afterseven <noreply@afterseven.club>",
+            from: fromAddress,
             to: [email.trim().toLowerCase()],
             subject: `Your reservation is confirmed — ${event.title}`,
             html: `
@@ -124,10 +126,19 @@ Deno.serve(async (req) => {
             `,
           }),
         });
+
+        const emailResBody = await emailRes.text();
+        if (!emailRes.ok) {
+          console.error(`Resend API error (${emailRes.status}):`, emailResBody);
+        } else {
+          console.log("Confirmation email sent:", emailResBody);
+        }
       } catch (emailErr) {
         console.error("Email send failed:", emailErr);
         // Don't fail the reservation if email fails
       }
+    } else {
+      console.warn("RESEND_API_KEY not set — skipping confirmation email");
     }
 
     return new Response(
