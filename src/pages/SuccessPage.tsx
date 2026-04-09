@@ -28,18 +28,22 @@ export function SuccessPage({ result }: SuccessPageProps) {
           transition={{ delay: 0.3 }}
           className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4"
         >
-          Reservation Confirmed
+          Reservation Confirmed!
         </motion.p>
 
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-3xl sm:text-4xl font-black uppercase tracking-[-0.02em] text-alabaster mb-8"
+          className="mb-8"
         >
-          See You
+          <span className="text-xs uppercase tracking-[0.3em] text-white/40 mb-4">
+            see you
+          </span>
           <br />
-          After Seven
+          <span className="font-cometus text-5xl sm:text-6xl text-alabaster tracking-wide drop-shadow-xl">
+            After Seven
+          </span>
         </motion.h1>
 
         <motion.div
