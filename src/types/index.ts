@@ -4,6 +4,7 @@ export interface Event {
   event_date: string;
   capacity: number;
   spots_remaining: number;
+  email_content: string | null;
   is_active: boolean;
   created_at: string;
 }
@@ -42,4 +43,5 @@ export interface CreateEventInput {
   title: string;
   event_date: string;
   capacity: number;
+  email_content: string;
 }

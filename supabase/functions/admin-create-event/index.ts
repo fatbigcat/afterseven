@@ -26,7 +26,7 @@ Deno.serve(async (req) => {
 
     const supabase = createServiceClient();
 
-    const { title, event_date, capacity } = await req.json();
+    const { title, event_date, capacity, email_content } = await req.json();
 
     // Validate input
     if (!title || typeof title !== "string" || title.trim().length < 1) {
@@ -71,6 +71,7 @@ Deno.serve(async (req) => {
         capacity: capacity,
         spots_remaining: capacity,
         is_active: true,
+        email_content: email_content || null,
       })
       .select()
       .single();

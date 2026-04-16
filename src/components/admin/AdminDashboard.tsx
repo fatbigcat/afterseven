@@ -34,7 +34,7 @@ async function invokeFunction<T>(fnName: string, body: object): Promise<T> {
   return data as T;
 }
 
-export function AdminDashboard({ onLogout }: AdminDashboardProps) {
+export function AdminDashboard({ onLogout }: Readonly<AdminDashboardProps>) {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(false);

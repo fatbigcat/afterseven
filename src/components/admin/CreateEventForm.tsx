@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,21 +10,31 @@ interface CreateEventFormProps {
   isLoading: boolean;
 }
 
-export function CreateEventForm({ onSubmit, isLoading }: CreateEventFormProps) {
+export function CreateEventForm({
+  onSubmit,
+  isLoading,
+}: Readonly<CreateEventFormProps>) {
   const [title, setTitle] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [capacity, setCapacity] = useState("");
+  const [emailContent, setEmailContent] = useState("");
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const submitForm = async () => {
     await onSubmit({
       title,
       event_date: new Date(eventDate).toISOString(),
-      capacity: parseInt(capacity, 10),
+      capacity: Number.parseInt(capacity, 10),
+      email_content: emailContent,
     });
     setTitle("");
     setEventDate("");
     setCapacity("");
+    setEmailContent("");
+  };
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    void submitForm();
   };
 
   return (
@@ -58,7 +68,7 @@ export function CreateEventForm({ onSubmit, isLoading }: CreateEventFormProps) {
             required
             value={eventDate}
             onChange={(e) => setEventDate(e.target.value)}
-            className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-base text-alabaster focus:border-alabaster focus:outline-none transition-colors text-[16px] [color-scheme:dark]"
+            className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-base text-alabaster focus:border-alabaster focus:outline-none transition-colors text-[16px] scheme-dark"
           />
         </div>
 
@@ -75,10 +85,21 @@ export function CreateEventForm({ onSubmit, isLoading }: CreateEventFormProps) {
           />
         </div>
 
+        <div>
+          <Label htmlFor="event-email-content">Email Content (optional)</Label>
+          <textarea
+            id="event-email-content"
+            value={emailContent}
+            onChange={(e) => setEmailContent(e.target.value)}
+            placeholder="Add a custom message to the booking confirmation email for this event."
+            className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-3 text-base text-alabaster placeholder:text-white/40 focus:border-alabaster focus:outline-none transition-colors min-h-30 resize-y"
+          />
+        </div>
+
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full bg-alabaster text-black font-bold text-sm uppercase tracking-[0.15em] py-3 hover:bg-white transition-colors active:scale-[0.98] disabled:opacity-50 min-h-[48px]"
+          className="w-full bg-alabaster text-black font-bold text-sm uppercase tracking-[0.15em] py-3 hover:bg-white transition-colors active:scale-[0.98] disabled:opacity-50 min-h-12"
         >
           {isLoading ? <LoadingSpinner /> : "Create Event"}
         </button>
